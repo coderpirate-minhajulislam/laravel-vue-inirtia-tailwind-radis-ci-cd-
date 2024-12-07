@@ -76,4 +76,4 @@ jobs:
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
       run: |
-        lftp -e "mirror -R ./ /public_html; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
+        lftp -e "set ssl:verify-certificate no; mirror -R ./ /public_html; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
