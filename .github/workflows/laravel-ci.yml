@@ -41,11 +41,14 @@ jobs:
     - name: Set environment variables
       run: |
         echo "DB_CONNECTION=mysql" >> .env
-        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
         echo "DB_PORT=3306" >> .env
-        echo "DB_DATABASE=u298228918_laravelbd" >> .env
-        echo "DB_USERNAME=u298228918_laravel" >> .env
-        echo "DB_PASSWORD=Admin@1332" >> .env
+        echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+        echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+
+    - name: Debug Environment Variables
+      run: cat .env
 
     - name: Generate key
       run: php artisan key:generate
