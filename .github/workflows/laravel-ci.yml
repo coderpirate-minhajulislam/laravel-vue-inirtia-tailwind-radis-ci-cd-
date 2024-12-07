@@ -1,0 +1,55 @@
+name: Laravel CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: laravel
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, pdo, mysql, redis
+    - name: Install Composer dependencies
+      run: composer install
+    - name: Copy .env.example to .env
+      run: cp .env.example .env
+    - name: Generate key
+      run: php artisan key:generate
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+    - name: Install NPM dependencies
+      run: npm install && npm run dev
+    - name: Run migrations
+      run: php artisan migrate
+    - name: Run tests
+      run: php artisan test
+    - name: Deploy to Hostinger
+      env:
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      run: |
+        lftp -e "mirror -R ./ /public_html; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER

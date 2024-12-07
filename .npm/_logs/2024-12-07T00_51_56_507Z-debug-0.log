@@ -1,0 +1,66 @@
+0 verbose cli /usr/bin/node /usr/bin/npm
+1 info using npm@9.2.0
+2 info using node@v18.19.0
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 2ms
+5 timing config:load:file:/usr/share/nodejs/npm/npmrc Completed in 2ms
+6 timing config:load:builtin Completed in 3ms
+7 timing config:load:cli Completed in 2ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:project Completed in 3ms
+10 timing config:load:file:/var/www/.npmrc Completed in 1ms
+11 timing config:load:user Completed in 2ms
+12 timing config:load:file:/etc/npmrc Completed in 0ms
+13 timing config:load:global Completed in 1ms
+14 timing config:load:setEnvs Completed in 1ms
+15 timing config:load Completed in 14ms
+16 timing npm:load:configload Completed in 14ms
+17 timing npm:load:mkdirpcache Completed in 2ms
+18 timing npm:load:mkdirplogs Completed in 1ms
+19 verbose title npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 tailwindcss postcss autoprefixer
+20 verbose argv "install" "vue@next" "@inertiajs/inertia" "@inertiajs/inertia-vue3" "tailwindcss" "postcss" "autoprefixer"
+21 timing npm:load:setTitle Completed in 2ms
+22 timing config:load:flatten Completed in 3ms
+23 timing npm:load:display Completed in 4ms
+24 verbose logfile logs-max:10 dir:/var/www/.npm/_logs/2024-12-07T00_51_56_507Z-
+25 verbose logfile /var/www/.npm/_logs/2024-12-07T00_51_56_507Z-debug-0.log
+26 timing npm:load:logFile Completed in 30ms
+27 timing npm:load:timers Completed in 1ms
+28 timing npm:load:configScope Completed in 0ms
+29 timing npm:load Completed in 60ms
+30 silly logfile done cleaning log files
+31 timing config:load:flatten Completed in 1ms
+32 timing arborist:ctor Completed in 1ms
+33 timing arborist:ctor Completed in 1ms
+34 timing idealTree:init Completed in 38ms
+35 http fetch GET 200 https://registry.npmjs.org/vue 96ms (cache hit)
+36 timing idealTree Completed in 154ms
+37 timing command:install Completed in 168ms
+38 verbose type tag
+39 verbose stack vue: No matching version found for vue@next.
+39 verbose stack     at module.exports (/usr/share/nodejs/npm/node_modules/npm-pick-manifest/lib/index.js:209:23)
+39 verbose stack     at RegistryFetcher.manifest (/usr/share/nodejs/pacote/lib/registry.js:117:22)
+39 verbose stack     at async /usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:527:22
+39 verbose stack     at async Promise.all (index 0)
+39 verbose stack     at async [add] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:516:5)
+39 verbose stack     at async [applyUserRequestsToNode] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:485:7)
+39 verbose stack     at async [applyUserRequests] (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:421:7)
+39 verbose stack     at async Arborist.buildIdealTree (/usr/share/nodejs/@npmcli/arborist/lib/arborist/build-ideal-tree.js:205:7)
+39 verbose stack     at async Promise.all (index 1)
+39 verbose stack     at async Arborist.reify (/usr/share/nodejs/@npmcli/arborist/lib/arborist/reify.js:156:5)
+40 verbose cwd /var/www
+41 verbose Linux 6.10.14-linuxkit
+42 verbose node v18.19.0
+43 verbose npm  v9.2.0
+44 error code ETARGET
+45 error notarget No matching version found for vue@next.
+46 error notarget In most cases you or one of your dependencies are requesting
+46 error notarget a package version that doesn't exist.
+47 verbose exit 1
+48 timing npm Completed in 288ms
+49 verbose unfinished npm timer reify 1733532716605
+50 verbose unfinished npm timer reify:loadTrees 1733532716609
+51 verbose unfinished npm timer idealTree:userRequests 1733532716649
+52 verbose code 1
+53 error A complete log of this run can be found in:
+53 error     /var/www/.npm/_logs/2024-12-07T00_51_56_507Z-debug-0.log
