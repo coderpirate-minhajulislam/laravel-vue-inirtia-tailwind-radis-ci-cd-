@@ -32,11 +32,23 @@ jobs:
         php-version: '8.2'
         extensions: mbstring, pdo, mysql, redis
 
+    - name: Install lftp
+      run: sudo apt-get update && sudo apt-get install -y lftp
+
     - name: Install Composer dependencies
       run: composer install
 
     - name: Copy .env.example to .env
       run: cp .env.example .env
+
+    - name: Set environment variables
+      run: |
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=laravel" >> .env
+        echo "DB_USERNAME=root" >> .env
+        echo "DB_PASSWORD=root" >> .env
 
     - name: Generate key
       run: php artisan key:generate
@@ -53,16 +65,7 @@ jobs:
       run: npm run build
 
     - name: Run migrations
-      env:
-        # DB_CONNECTION: mysql
-        DB_CONNECTION: sqlite
-        # DB_HOST: 127.0.0.1
-        # DB_PORT: 3306
-        # DB_DATABASE: u298228918_laraveldb
-        # DB_USERNAME: u298228918_laravel
-        
-        # DB_PASSWORD: Admin@1332
-      run: php artisan migrate
+      run: php artisan migrate --force
 
     - name: Run tests
       run: php artisan test
