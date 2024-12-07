@@ -49,7 +49,7 @@ jobs:
 
     - name: Set environment variables
       run: |
-        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_CONNECTION=sqlite" >> .env
         echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
         echo "DB_PORT=3306" >> .env
         echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
