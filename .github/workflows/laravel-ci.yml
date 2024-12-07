@@ -54,12 +54,13 @@ jobs:
 
     - name: Run migrations
       env:
-        DB_CONNECTION: mysql
-        DB_HOST: 127.0.0.1
-        DB_PORT: 3306
-        DB_DATABASE: u298228918_laraveldb
-        DB_USERNAME: u298228918_laravel
-        DB_PASSWORD: Admin@1332
+        # DB_CONNECTION: mysql
+        DB_CONNECTION: sqlite
+        # DB_HOST: 127.0.0.1
+        # DB_PORT: 3306
+        # DB_DATABASE: u298228918_laraveldb
+        # DB_USERNAME: u298228918_laravel
+        # DB_PASSWORD: Admin@1332
       run: php artisan migrate
 
     - name: Run tests
