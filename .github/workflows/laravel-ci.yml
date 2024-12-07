@@ -11,10 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: your_database_name
-      REDIS_PASSWORD: redis_password
 
     services:
       mysql:
@@ -29,17 +25,15 @@ jobs:
           --health-start-period=10s
           --health-timeout=5s
           --health-retries=5
-      # redis:
-      #   image: redis:latest
-      #   ports:
-      #     - 6379:6379
-      #   env:
-      #     REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-      #   options: >-
-      #     --health-cmd="redis-server --test-memory 100"
-      #     --health-start-period=10s
-      #     --health-timeout=5s
-      #     --health-retries=5
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-server --test-memory 100"
+          --health-start-period=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       # 1. Checkout the code from the repository
@@ -50,11 +44,10 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           extensions: mbstring, bcmath, zip, pdo, pdo_mysql, redis
-          coverage: none
 
-      # 3. Install Composer dependencies (Production-only dependencies)
+      # 3. Install Composer dependencies
       - name: Install Composer dependencies
         run: |
           composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
@@ -67,13 +60,11 @@ jobs:
 
       # 5. Install npm dependencies
       - name: Install npm dependencies
-        run: |
-          npm install
+        run: npm install
 
       # 6. Run Laravel database migrations
       - name: Run database migrations
-        run: |
-          php artisan migrate --force
+        run: php artisan migrate --force
 
       # 7. Run Laravel Artisan optimize commands for production
       - name: Run Laravel Artisan optimize commands
@@ -84,25 +75,18 @@ jobs:
 
       # 8. Run tests (you can choose to skip this step in production)
       - name: Run tests
-        run: |
-          php artisan test
+        run: php artisan test
 
       # 9. Compile frontend assets for production (Vue + Tailwind CSS)
       - name: Compile frontend assets for production
-        run: |
-          npm run production
+        run: npm run production
 
-      # 10. Check Tailwind CSS build (for production-ready output)
-      - name: Check Tailwind CSS build
-        run: |
-          npm run build:tailwind
-
-      # 11. Deploy to shared hosting via FTP (Production deployment)
+      # 10. Deploy to shared hosting via FTP (Production deployment)
       - name: Deploy to shared hosting via FTP
         if: success()  # Only deploy if previous steps were successful
         run: |
           # Install lftp for FTP deployment
-          sudo apt-get install -y lftp
+          sudo apt-get update && sudo apt-get install -y lftp
 
           # Use lftp to upload files to your shared hosting server
           lftp -e "
