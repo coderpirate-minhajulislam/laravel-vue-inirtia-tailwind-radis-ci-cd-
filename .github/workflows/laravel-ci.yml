@@ -60,6 +60,7 @@ jobs:
         # DB_PORT: 3306
         # DB_DATABASE: u298228918_laraveldb
         # DB_USERNAME: u298228918_laravel
+        
         # DB_PASSWORD: Admin@1332
       run: php artisan migrate
 
