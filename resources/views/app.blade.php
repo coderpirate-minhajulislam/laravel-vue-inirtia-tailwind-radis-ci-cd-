@@ -17,6 +17,6 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
-        <h2> test server by minhajul islam new db testt</h2>
+        <h2> test server by minhajul islam new db  cache testt</h2> 
     </body>
 </html>
